@@ -49,9 +49,9 @@ public class Main {
         visited.add(node);
         //visited.forEach(System.out::print);
         System.out.println(node);
-        Set<Node> neighbor = new HashSet<>();
-        node.getEdges().stream().map(Edge::getNodes).flatMap(Collection::stream).forEach(n -> {if (!n.equals(node)) neighbor.add(n);});
-        neighbor.forEach(n ->{if (visited.add(n)) depthSearch(node);});
+        Set<Node> neighbor = node.getEdges().stream().map(Edge::getNodes)
+                .flatMap(Collection::stream).distinct().collect(Collectors.toSet());
+        neighbor.forEach(n ->{if (visited.add(n)) depthSearch(n);});
     }
 
 }
